@@ -14,6 +14,13 @@ def detect_intent_texts(project_id, session_id, text, language_code):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
+    print("Query text: {}".format(response.query_result.query_text))
+    print(
+        "Detected intent: {} (confidence: {})\n".format(
+            response.query_result.intent.display_name,
+            response.query_result.intent_detection_confidence,
+        )
+    )
     return response.query_result.fulfillment_text
 
 
@@ -25,7 +32,7 @@ def start(update: Update, context: CallbackContext) -> None:
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
     update.message.reply_text(
-        detect_intent_texts('nikita2-cfjt',
+        detect_intent_texts(os.environ['PROJECT_ID'],
                             '12567231425634',
                             update.message.text, 'ru'))
 
