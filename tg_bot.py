@@ -14,10 +14,10 @@ def start(update: Update, context: CallbackContext) -> None:
 
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    update.message.reply_text(
-        detect_intent_texts(os.environ['PROJECT_ID'],
-                            '12567231425634',
-                            update.message.text, 'ru'))
+    message, is_fallback = detect_intent_texts(os.environ['PROJECT_ID'],
+                                               '12567231425634',
+                                               update.message.text, 'ru')
+    update.message.reply_text(message)
 
 
 def main():
