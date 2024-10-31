@@ -4,17 +4,7 @@ from google.cloud import dialogflow
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, \
     Filters, CallbackContext
-
-
-def detect_intent_texts(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = dialogflow.TextInput(text=text, language_code=language_code)
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-    )
-    return response.query_result.fulfillment_text
+from intent import detect_intent_texts
 
 
 def start(update: Update, context: CallbackContext) -> None:
