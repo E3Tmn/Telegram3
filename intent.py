@@ -9,9 +9,7 @@ def load_questions(dir_name, filename):
     url = 'https://dvmn.org/media/filer_public/a7/db/a7db66c0-1259-4dac-9726-2d1fa9c44f20/questions.json'
     response = requests.get(url)
     response.raise_for_status()
-    os.makedirs(dir_name, exist_ok=True)
-    with open(os.path.join(dir_name, f'{filename}.json'), 'w', encoding='utf-8') as file:
-        json.dump(response.json(), file, ensure_ascii=False)
+    return response.json()
 
 
 def upload_phrases(dir_name, filename, project_id):
@@ -67,7 +65,10 @@ def main():
     project_id = os.environ['PROJECT_ID']
     dir_name = 'files'
     filename = 'question'
-    load_questions(dir_name, filename)
+    response_json = load_questions(dir_name, filename)
+    os.makedirs(dir_name, exist_ok=True)
+    with open(os.path.join(dir_name, f'{filename}.json'), 'w', encoding='utf-8') as file:
+        json.dump(response_json, file, ensure_ascii=False)
     upload_phrases(dir_name, filename, project_id)
 
 
