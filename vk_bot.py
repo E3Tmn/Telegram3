@@ -7,7 +7,7 @@ from intent import detect_intent_texts
 
 
 def echo(event, vk_api, project_id):
-    message, is_fallback = detect_intent_texts(f'vk-{project_id}', event.user_id, event.text, 'en')
+    message, is_fallback = detect_intent_texts(project_id, f'vk-{event.user_id}', event.text, 'en')
     if not is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,

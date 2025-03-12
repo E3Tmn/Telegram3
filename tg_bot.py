@@ -14,8 +14,8 @@ def start(update: Update, context: CallbackContext) -> None:
 
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    message, is_fallback = detect_intent_texts(f'tg-{project_id}',
-                                               '12567231425634',
+    message, is_fallback = detect_intent_texts(os.environ["PROJECT_ID"],
+                                               f'tg-{update.message.chat_id}',
                                                update.message.text, 'en')
     update.message.reply_text(message)
 
@@ -32,5 +32,4 @@ def main():
 
 
 if __name__ == '__main__':
-    project_id = os.environ['VK-PROJECT_ID']
     main()
