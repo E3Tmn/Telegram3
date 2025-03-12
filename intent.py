@@ -22,8 +22,6 @@ def upload_phrases(dir_name, filename, project_id):
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
-    """Create an intent of the given intent type."""
-
     intents_client = dialogflow.IntentsClient()
 
     parent = dialogflow.AgentsClient.agent_path(project_id)
